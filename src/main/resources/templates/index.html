@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Biblioteca</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #263238;
+        }
+
+        header {
+            background-color: #263238;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #cfd8dc;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .tarjeta {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tarjeta h2 {
+            margin-bottom: 20px;
+            color: #37474f;
+        }
+
+        .formulario {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo label {
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            padding: 11px;
+            border: 1px solid #b0bec5;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .campo input:focus {
+            outline: none;
+            border-color: #546e7a;
+        }
+
+        .botones {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-principal {
+            background-color: #37474f;
+            color: white;
+        }
+
+        .btn-secundario {
+            background-color: #607d8b;
+            color: white;
+        }
+
+        .btn-eliminar {
+            background-color: #c62828;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .mensaje {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .exito {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background-color: #37474f;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .sin-datos {
+            text-align: center;
+            padding: 25px;
+            color: #78909c;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #78909c;
+        }
+
+        @media (max-width: 700px) {
+            .formulario {
+                grid-template-columns: 1fr;
+            }
+
+            .contenedor {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Sistema de Gestión de Biblioteca</h1>
+    <p>Módulo de administración de libros</p>
+</header>
+
+<div class="contenedor">
+
+    <!-- REGISTRAR LIBRO -->
+    <div class="tarjeta">
+        <h2>Registrar nuevo libro</h2>
+
+        <form id="formRegistrar">
+
+            <div class="formulario">
+
+                <div class="campo">
+                    <label for="titulo">Título</label>
+                    <input
+                        type="text"
+                        id="titulo"
+                        minlength="2"
+                        maxlength="150"
+                        required
+                        placeholder="Ingrese el título">
+                </div>
+
+                <div class="campo">
+                    <label for="idAutor">ID del autor</label>
+                    <input
+                        type="number"
+                        id="idAutor"
+                        min="1"
+                        required
+                        placeholder="Ej. 1">
+                </div>
+
+                <div class="campo">
+                    <label for="idCategoria">ID de categoría</label>
+                    <input
+                        type="number"
+                        id="idCategoria"
+                        min="1"
+                        required
+                        placeholder="Ej. 1">
+                </div>
+
+            </div>
+
+            <div class="botones">
+                <button type="submit" class="btn-principal">
+                    Registrar libro
+                </button>
+
+                <button type="button" class="btn-secundario" onclick="cargarLibros()">
+                    Actualizar lista
+                </button>
+            </div>
+
+        </form>
+
+        <div id="mensajeRegistro" class="mensaje"></div>
+    </div>
+
+
+    <!-- BUSCAR LIBRO -->
+    <div class="tarjeta">
+
+        <h2>Buscar libro</h2>
+
+        <div class="formulario">
+
+            <div class="campo">
+                <label for="buscarId">ID del libro</label>
+
+                <input
+                    type="number"
+                    id="buscarId"
+                    min="1"
+                    placeholder="Ingrese el ID">
+            </div>
+
+        </div>
+
+        <div class="botones">
+
+            <button
+                type="button"
+                class="btn-principal"
+                onclick="buscarLibro()">
+                Buscar
+            </button>
+
+            <button
+                type="button"
+                class="btn-secundario"
+                onclick="cargarLibros()">
+                Mostrar todos
+            </button>
+
+        </div>
+
+        <div id="resultadoBusqueda" class="mensaje"></div>
+
+    </div>
+
+
+    <!-- ACTUALIZAR LIBRO -->
+    <div class="tarjeta">
+
+        <h2>Actualizar libro</h2>
+
+        <div class="formulario">
+
+            <div class="campo">
+                <label for="actualizarId">ID del libro</label>
+
+                <input
+                    type="number"
+                    id="actualizarId"
+                    min="1"
+                    required
+                    placeholder="Ej. 2">
+            </div>
+
+            <div class="campo">
+                <label for="nuevoTitulo">Nuevo título</label>
+
+                <input
+                    type="text"
+                    id="nuevoTitulo"
+                    minlength="2"
+                    maxlength="150"
+                    required
+                    placeholder="Nuevo título">
+            </div>
+
+        </div>
+
+        <div class="botones">
+
+            <button
+                type="button"
+                class="btn-principal"
+                onclick="actualizarLibro()">
+                Actualizar
+            </button>
+
+        </div>
+
+        <div id="mensajeActualizar" class="mensaje"></div>
+
+    </div>
+
+
+    <!-- LISTADO -->
+    <div class="tarjeta">
+
+        <h2>Libros registrados</h2>
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>ID Autor</th>
+                        <th>ID Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaLibros">
+                    <tr>
+                        <td colspan="5" class="sin-datos">
+                            Cargando libros...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    Sistema de Gestión de Biblioteca
+</footer>
+
+
+<script>
+
+    const API = "/api/libros";
+
+
+    // Mostrar mensaje
+    function mostrarMensaje(elemento, texto, tipo) {
+
+        elemento.textContent = texto;
+        elemento.className = "mensaje " + tipo;
+        elemento.style.display = "block";
+
+        setTimeout(() => {
+            elemento.style.display = "none";
+        }, 4000);
+    }
+
+
+    // Cargar todos los libros
+    async function cargarLibros() {
+
+        const tabla = document.getElementById("tablaLibros");
+
+        try {
+
+            const respuesta = await fetch(API);
+
+            if (!respuesta.ok) {
+                throw new Error("No fue posible consultar los libros.");
+            }
+
+            const libros = await respuesta.json();
+
+            tabla.innerHTML = "";
+
+            if (libros.length === 0) {
+
+                tabla.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="sin-datos">
+                            No hay libros registrados.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+            libros.forEach(libro => {
+
+                const fila = document.createElement("tr");
+
+                fila.innerHTML = `
+                    <td>${libro.idLibro}</td>
+                    <td>${libro.titulo}</td>
+                    <td>${libro.idAutor}</td>
+                    <td>${libro.idCategoria}</td>
+                    <td>
+                        <button
+                            class="btn-eliminar"
+                            onclick="eliminarLibro(${libro.idLibro})">
+                            Eliminar
+                        </button>
+                    </td>
+                `;
+
+                tabla.appendChild(fila);
+
+            });
+
+        } catch (error) {
+
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="5" class="sin-datos">
+                        Error al cargar los libros.
+                    </td>
+                </tr>
+            `;
+
+            console.error(error);
+        }
+    }
+
+
+    // Registrar libro
+    document.getElementById("formRegistrar").addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const titulo = document.getElementById("titulo").value.trim();
+        const idAutor = Number(document.getElementById("idAutor").value);
+        const idCategoria = Number(document.getElementById("idCategoria").value);
+
+        const mensaje = document.getElementById("mensajeRegistro");
+
+        if (titulo.length < 2) {
+
+            mostrarMensaje(
+                mensaje,
+                "El título debe tener al menos 2 caracteres.",
+                "error"
+            );
+
+            return;
+        }
+
+        const libro = {
+            titulo: titulo,
+            idAutor: idAutor,
+            idCategoria: idCategoria
+        };
+
+        try {
+
+            const respuesta = await fetch(API, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(libro)
+
+            });
+
+            if (!respuesta.ok) {
+                throw new Error("No fue posible registrar el libro.");
+            }
+
+            mostrarMensaje(
+                mensaje,
+                "Libro registrado correctamente.",
+                "exito"
+            );
+
+            document.getElementById("formRegistrar").reset();
+
+            cargarLibros();
+
+        } catch (error) {
+
+            mostrarMensaje(
+                mensaje,
+                "Error al registrar el libro.",
+                "error"
+            );
+
+            console.error(error);
+        }
+
+    });
+
+
+    // Buscar libro por ID
+    async function buscarLibro() {
+
+        const id = document.getElementById("buscarId").value;
+        const resultado = document.getElementById("resultadoBusqueda");
+
+        if (!id || id < 1) {
+
+            mostrarMensaje(
+                resultado,
+                "Ingrese un ID válido.",
+                "error"
+            );
+
+            return;
+        }
+
+        try {
+
+            const respuesta = await fetch(`${API}/${id}`);
+
+            if (!respuesta.ok) {
+                throw new Error();
+            }
+
+            const libro = await respuesta.json();
+
+            if (!libro || !libro.idLibro) {
+
+                mostrarMensaje(
+                    resultado,
+                    "No se encontró un libro con ese ID.",
+                    "error"
+                );
+
+                return;
+            }
+
+            mostrarMensaje(
+                resultado,
+                `Libro encontrado: ${libro.titulo} | Autor: ${libro.idAutor} | Categoría: ${libro.idCategoria}`,
+                "exito"
+            );
+
+        } catch (error) {
+
+            mostrarMensaje(
+                resultado,
+                "No se encontró un libro con ese ID.",
+                "error"
+            );
+        }
+    }
+
+
+    // Actualizar libro
+    async function actualizarLibro() {
+
+        const id = document.getElementById("actualizarId").value;
+        const nuevoTitulo = document.getElementById("nuevoTitulo").value.trim();
+        const mensaje = document.getElementById("mensajeActualizar");
+
+        if (!id || id < 1) {
+
+            mostrarMensaje(
+                mensaje,
+                "Ingrese un ID válido.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (nuevoTitulo.length < 2) {
+
+            mostrarMensaje(
+                mensaje,
+                "El título debe tener al menos 2 caracteres.",
+                "error"
+            );
+
+            return;
+        }
+
+        try {
+
+            const respuesta = await fetch(`${API}/${id}`, {
+
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    titulo: nuevoTitulo
+                })
+
+            });
+
+            if (!respuesta.ok) {
+                throw new Error();
+            }
+
+            const libro = await respuesta.json();
+
+            if (!libro) {
+                throw new Error();
+            }
+
+            mostrarMensaje(
+                mensaje,
+                "Libro actualizado correctamente.",
+                "exito"
+            );
+
+            document.getElementById("nuevoTitulo").value = "";
+
+            cargarLibros();
+
+        } catch (error) {
+
+            mostrarMensaje(
+                mensaje,
+                "No fue posible actualizar el libro.",
+                "error"
+            );
+        }
+    }
+
+
+    // Eliminar libro
+    async function eliminarLibro(id) {
+
+        const confirmar = confirm(
+            "¿Está seguro de que desea eliminar este libro?"
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        try {
+
+            const respuesta = await fetch(`${API}/${id}`, {
+                method: "DELETE"
+            });
+
+            if (!respuesta.ok) {
+                throw new Error();
+            }
+
+            alert("Libro eliminado correctamente.");
+
+            cargarLibros();
+
+        } catch (error) {
+
+            alert("No fue posible eliminar el libro.");
+        }
+    }
+
+
+    // Cargar libros al abrir la página
+    cargarLibros();
+
+</script>
+
+</body>
+</html>
