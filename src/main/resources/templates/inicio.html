@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Gestión Bibliotecaria</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f5f7;
+            color: #263238;
+        }
+
+        header {
+            background: #183153;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #dce6f1;
+        }
+
+        .bienvenida {
+            text-align: center;
+            padding: 45px 20px 25px;
+        }
+
+        .bienvenida h2 {
+            font-size: 27px;
+            margin-bottom: 12px;
+            color: #183153;
+        }
+
+        .bienvenida p {
+            color: #607080;
+        }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: 25px auto 60px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .tarjeta .icono {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .tarjeta h3 {
+            color: #183153;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta p {
+            color: #607080;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta a {
+            display: inline-block;
+            background: #245b91;
+            color: white;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 6px;
+        }
+
+        .tarjeta a:hover {
+            background: #183153;
+        }
+
+        footer {
+            background: #183153;
+            color: white;
+            text-align: center;
+            padding: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Sistema de Gestión Bibliotecaria</h1>
+    <p>Administración y gestión de recursos bibliográficos</p>
+</header>
+
+<section class="bienvenida">
+    <h2>¡Bienvenido a nuestra biblioteca!</h2>
+    <p>Selecciona el módulo al que deseas ingresar.</p>
+</section>
+
+<main class="contenedor">
+
+    <div class="tarjeta">
+        <div class="icono">📖</div>
+        <h3>Libros</h3>
+        <p>Administra el catálogo de libros de la biblioteca.</p>
+        <a href="/libros">Ingresar</a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="icono">✍️</div>
+        <h3>Autores</h3>
+        <p>Registra y administra los autores.</p>
+        <a href="/autores">Ingresar</a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="icono">📂</div>
+        <h3>Categorías</h3>
+        <p>Organiza los libros por categorías.</p>
+        <a href="/categorias">Ingresar</a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="icono">👥</div>
+        <h3>Usuarios</h3>
+        <p>Administra los usuarios de la biblioteca.</p>
+        <a href="/usuarios">Ingresar</a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="icono">📋</div>
+        <h3>Préstamos</h3>
+        <p>Gestiona los préstamos y devoluciones.</p>
+        <a href="/prestamos">Ingresar</a>
+    </div>
+
+    <div class="tarjeta">
+        <div class="icono">📚</div>
+        <h3>Detalles de préstamos</h3>
+        <p>Consulta los libros asociados a cada préstamo.</p>
+        <a href="/detalles-prestamo">Ingresar</a>
+    </div>
+
+</main>
+
+<footer>
+    Sistema de Gestión Bibliotecaria
+</footer>
+
+</body>
+</html>

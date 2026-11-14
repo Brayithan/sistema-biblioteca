@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar detalle de préstamo</title>
+</head>
+<body>
+
+    <h1>Editar detalle de préstamo</h1>
+
+    <form th:action="@{/detalles-prestamo/actualizar}"
+          th:object="${detalle}" method="post">
+
+        <input type="hidden" th:field="*{idDetalle}">
+
+        <label>Préstamo:</label>
+        <select th:field="*{idPrestamo}" required>
+            <option th:each="prestamo : ${prestamos}"
+                    th:value="${prestamo.idPrestamo}"
+                    th:text="${prestamo.idPrestamo}">
+            </option>
+        </select>
+
+        <br><br>
+
+        <label>Libro:</label>
+        <select th:field="*{idLibro}" required>
+            <option th:each="libro : ${libros}"
+                    th:value="${libro.idLibro}"
+                    th:text="${libro.titulo}">
+            </option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Guardar cambios</button>
+
+    </form>
+
+    <br>
+    <a href="/detalles-prestamo">Volver a detalles</a>
+
+</body>
+</html>

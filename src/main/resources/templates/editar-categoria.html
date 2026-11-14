@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar categoría</title>
+</head>
+<body>
+
+    <h1>Editar categoría</h1>
+
+    <form th:action="@{/categorias/actualizar}" th:object="${categoria}" method="post">
+
+        <input type="hidden" th:field="*{idCategoria}">
+
+        <label>Nombre de la categoría:</label>
+        <input type="text" th:field="*{nombre}" required>
+
+        <button type="submit">Guardar cambios</button>
+
+    </form>
+
+    <br>
+    <a href="/categorias">Volver a categorías</a>
+
+</body>
+</html>

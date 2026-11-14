@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de préstamos</title>
+</head>
+<body>
+
+    <h1>Gestión de detalles de préstamos</h1>
+
+    <p th:if="${mensaje}" th:text="${mensaje}" style="color: green;"></p>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+    <h2>Asociar libro a préstamo</h2>
+
+    <form th:action="@{/detalles-prestamo/guardar}"
+          th:object="${detalle}" method="post">
+
+        <label>Préstamo:</label>
+
+        <select th:field="*{idPrestamo}" required>
+            <option value="">Seleccione un préstamo</option>
+            <option th:each="prestamo : ${prestamos}"
+                    th:value="${prestamo.idPrestamo}"
+                    th:text="${'Préstamo #' + prestamo.idPrestamo + ' - Usuario #' + prestamo.idUsuario}">
+            </option>
+        </select>
+
+        <br><br>
+
+        <label>Libro:</label>
+
+        <select th:field="*{idLibro}" required>
+            <option value="">Seleccione un libro</option>
+            <option th:each="libro : ${libros}"
+                    th:value="${libro.idLibro}"
+                    th:text="${libro.titulo}">
+            </option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Asociar libro</button>
+
+    </form>
+
+    <h2>Detalles registrados</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID detalle</th>
+                <th>ID préstamo</th>
+                <th>ID libro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="detalle : ${detalles}">
+                <td th:text="${detalle.idDetalle}"></td>
+                <td th:text="${detalle.idPrestamo}"></td>
+                <td th:text="${detalle.idLibro}"></td>
+                <td>
+    <a th:href="@{/detalles-prestamo/editar/{id}(id=${detalle.idDetalle})}">
+        Editar
+    </a>
+    |
+    <a th:href="@{/detalles-prestamo/eliminar/{id}(id=${detalle.idDetalle})}"
+       onclick="return confirm('¿Estás seguro de eliminar este detalle?')">
+        Eliminar
+    </a>
+</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/">Volver al inicio</a>
+
+</body>
+</html>

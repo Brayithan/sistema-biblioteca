@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión - Biblioteca</title>
+</head>
+<body>
+
+    <h1>📚 Sistema de Gestión Bibliotecaria</h1>
+    <h2>Iniciar sesión</h2>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    <p th:if="${mensaje}" th:text="${mensaje}" style="color:green;"></p>
+
+    <form th:action="@{/login}" method="post">
+
+        <label>Correo electrónico:</label>
+        <input type="email" name="correo" required>
+
+        <br><br>
+
+        <label>Contraseña:</label>
+        <input type="password" name="contrasena" required>
+
+        <br><br>
+
+        <button type="submit">Ingresar</button>
+
+    </form>
+
+    <br>
+
+    <a href="/registro">Crear una cuenta</a>
+
+    <br><br>
+
+    <a href="/">Volver al inicio</a>
+
+</body>
+</html>

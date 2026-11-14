@@ -1,16 +1,31 @@
 package com.biblioteca.sistema_biblioteca.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * Controlador encargado de mostrar la interfaz web del sistema.
- */
 @Controller
 public class WebController {
 
+    // Página principal: inicio de sesión
     @GetMapping("/")
-    public String inicio() {
+    public String inicio(HttpSession session) {
+
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
+
+        return "inicio";
+    }
+
+    // Módulo de libros
+    @GetMapping("/libros")
+    public String libros(HttpSession session) {
+
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/login";
+        }
+
         return "index";
     }
 }
