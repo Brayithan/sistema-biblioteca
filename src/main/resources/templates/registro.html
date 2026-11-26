@@ -2,47 +2,98 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>📚 Registro de usuarios</h1>
+    <header>
+        <h1>📚 Registro de usuarios</h1>
+        <p>Únete a nuestra biblioteca</p>
+    </header>
 
-    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+    <main class="contenedor">
 
-    <form th:action="@{/registro}" method="post">
+        <section class="tarjeta" style="max-width: 750px; margin: 30px auto;">
 
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" required>
+            <h2>Crear una cuenta</h2>
 
-        <br><br>
+            <p th:if="${error}" th:text="${error}" class="mensaje error"></p>
 
-        <label>Correo electrónico:</label>
-        <input type="email" name="correo" required>
+            <form th:action="@{/registro}" method="post">
 
-        <br><br>
+                <div class="formulario">
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono">
+                    <div class="campo">
+                        <label for="nombre">Nombre completo:</label>
+                        <input type="text"
+                               id="nombre"
+                               name="nombre"
+                               placeholder="Ingrese su nombre completo"
+                               required>
+                    </div>
 
-        <br><br>
+                    <div class="campo">
+                        <label for="correo">Correo electrónico:</label>
+                        <input type="email"
+                               id="correo"
+                               name="correo"
+                               placeholder="Ingrese su correo electrónico"
+                               required>
+                    </div>
 
-        <label>Dirección:</label>
-        <input type="text" name="direccion">
+                    <div class="campo">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text"
+                               id="telefono"
+                               name="telefono"
+                               placeholder="Ingrese su teléfono">
+                    </div>
 
-        <br><br>
+                    <div class="campo">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text"
+                               id="direccion"
+                               name="direccion"
+                               placeholder="Ingrese su dirección">
+                    </div>
 
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" required minlength="6">
+                    <div class="campo">
+                        <label for="contrasena">Contraseña:</label>
+                        <input type="password"
+                               id="contrasena"
+                               name="contrasena"
+                               placeholder="Mínimo 6 caracteres"
+                               required
+                               minlength="6">
+                    </div>
 
-        <br><br>
+                </div>
 
-        <button type="submit">Registrarme</button>
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Registrarme
+                    </button>
+                </div>
 
-    </form>
+            </form>
 
-    <br>
-    <a href="/login">Volver al inicio de sesión</a>
+            <hr style="margin: 25px 0; border: 1px solid #eeeeee;">
+
+            <p style="text-align: center;">
+                ¿Ya tienes una cuenta?
+            </p>
+
+            <div style="text-align: center; margin-top: 12px;">
+                <a th:href="@{/login}" class="btn btn-secundario">
+                    Volver al inicio de sesión
+                </a>
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

@@ -2,43 +2,72 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar detalle de préstamo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Editar detalle de préstamo</h1>
+    <header>
+        <h1>📋 Editar detalle de préstamo</h1>
+        <p>Actualizar libros asociados a los préstamos</p>
+    </header>
 
-    <form th:action="@{/detalles-prestamo/actualizar}"
-          th:object="${detalle}" method="post">
+    <main class="contenedor">
 
-        <input type="hidden" th:field="*{idDetalle}">
+        <section class="tarjeta">
+            <h2>Modificar detalle del préstamo</h2>
 
-        <label>Préstamo:</label>
-        <select th:field="*{idPrestamo}" required>
-            <option th:each="prestamo : ${prestamos}"
-                    th:value="${prestamo.idPrestamo}"
-                    th:text="${prestamo.idPrestamo}">
-            </option>
-        </select>
+            <form th:action="@{/detalles-prestamo/actualizar}"
+                  th:object="${detalle}"
+                  method="post">
 
-        <br><br>
+                <input type="hidden" th:field="*{idDetalle}">
 
-        <label>Libro:</label>
-        <select th:field="*{idLibro}" required>
-            <option th:each="libro : ${libros}"
-                    th:value="${libro.idLibro}"
-                    th:text="${libro.titulo}">
-            </option>
-        </select>
+                <div class="formulario">
 
-        <br><br>
+                    <div class="campo">
+                        <label for="idPrestamo">Préstamo:</label>
 
-        <button type="submit">Guardar cambios</button>
+                        <select id="idPrestamo" th:field="*{idPrestamo}" required>
+                            <option value="">Seleccione un préstamo</option>
 
-    </form>
+                            <option th:each="prestamo : ${prestamos}"
+                                    th:value="${prestamo.idPrestamo}"
+                                    th:text="${prestamo.idPrestamo}">
+                            </option>
+                        </select>
+                    </div>
 
-    <br>
-    <a href="/detalles-prestamo">Volver a detalles</a>
+                    <div class="campo">
+                        <label for="idLibro">Libro:</label>
+
+                        <select id="idLibro" th:field="*{idLibro}" required>
+                            <option value="">Seleccione un libro</option>
+
+                            <option th:each="libro : ${libros}"
+                                    th:value="${libro.idLibro}"
+                                    th:text="${libro.titulo}">
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar cambios
+                    </button>
+
+                    <a th:href="@{/detalles-prestamo}" class="btn btn-secundario">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>

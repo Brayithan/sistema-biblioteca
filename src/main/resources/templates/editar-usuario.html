@@ -2,38 +2,80 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar usuario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Editar usuario</h1>
+    <header>
+        <h1>👥 Editar usuario</h1>
+        <p>Actualizar información del usuario</p>
+    </header>
 
-    <form th:action="@{/usuarios/actualizar}" th:object="${usuario}" method="post">
+    <main class="contenedor">
 
-        <input type="hidden" th:field="*{idUsuario}">
+        <section class="tarjeta">
+            <h2>Modificar datos del usuario</h2>
 
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required>
-        <br><br>
+            <form th:action="@{/usuarios/actualizar}"
+                  th:object="${usuario}"
+                  method="post">
 
-        <label>Correo:</label>
-        <input type="email" th:field="*{correo}" required>
-        <br><br>
+                <input type="hidden" th:field="*{idUsuario}">
 
-        <label>Teléfono:</label>
-        <input type="text" th:field="*{telefono}">
-        <br><br>
+                <div class="formulario">
 
-        <label>Dirección:</label>
-        <input type="text" th:field="*{direccion}">
-        <br><br>
+                    <div class="campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text"
+                               id="nombre"
+                               th:field="*{nombre}"
+                               placeholder="Ingrese el nombre"
+                               required>
+                    </div>
 
-        <button type="submit">Guardar cambios</button>
+                    <div class="campo">
+                        <label for="correo">Correo:</label>
+                        <input type="email"
+                               id="correo"
+                               th:field="*{correo}"
+                               placeholder="Ingrese el correo"
+                               required>
+                    </div>
 
-    </form>
+                    <div class="campo">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text"
+                               id="telefono"
+                               th:field="*{telefono}"
+                               placeholder="Ingrese el teléfono">
+                    </div>
 
-    <br>
-    <a href="/usuarios">Volver a usuarios</a>
+                    <div class="campo">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text"
+                               id="direccion"
+                               th:field="*{direccion}"
+                               placeholder="Ingrese la dirección">
+                    </div>
+
+                </div>
+
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar cambios
+                    </button>
+
+                    <a th:href="@{/usuarios}" class="btn btn-secundario">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>

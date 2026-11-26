@@ -4,85 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Gestión de usuarios</h1>
+    <header>
+        <h1>👥 Gestión de usuarios</h1>
+        <p>Administración de usuarios de la biblioteca</p>
+    </header>
 
-    <h2>Registrar usuario</h2>
+    <main class="contenedor">
 
-    <p th:if="${mensaje}" th:text="${mensaje}" style="color: green;"></p>
-    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+        <a th:href="@{/inicio}" class="btn btn-inicio">← Volver al inicio</a>
 
-    <form th:action="@{/usuarios/guardar}"
-          th:object="${usuario}" method="post">
+        <section class="tarjeta">
+            <h2>Registrar usuario</h2>
 
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required>
+            <p th:if="${mensaje}" th:text="${mensaje}" class="mensaje exito"></p>
+            <p th:if="${error}" th:text="${error}" class="mensaje error"></p>
 
-        <br><br>
+            <form th:action="@{/usuarios/guardar}"
+                  th:object="${usuario}"
+                  method="post">
 
-        <label>Correo:</label>
-        <input type="email" th:field="*{correo}" required>
+                <div class="formulario">
 
-        <br><br>
+                    <div class="campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text"
+                               id="nombre"
+                               th:field="*{nombre}"
+                               placeholder="Ingrese el nombre"
+                               required>
+                    </div>
 
-        <label>Teléfono:</label>
-        <input type="text" th:field="*{telefono}">
+                    <div class="campo">
+                        <label for="correo">Correo:</label>
+                        <input type="email"
+                               id="correo"
+                               th:field="*{correo}"
+                               placeholder="Ingrese el correo"
+                               required>
+                    </div>
 
-        <br><br>
+                    <div class="campo">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text"
+                               id="telefono"
+                               th:field="*{telefono}"
+                               placeholder="Ingrese el teléfono">
+                    </div>
 
-        <label>Dirección:</label>
-        <input type="text" th:field="*{direccion}">
+                    <div class="campo">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text"
+                               id="direccion"
+                               th:field="*{direccion}"
+                               placeholder="Ingrese la dirección">
+                    </div>
 
-        <br><br>
+                    <div class="campo">
+                        <label for="contrasena">Contraseña:</label>
+                        <input type="password"
+                               id="contrasena"
+                               th:field="*{contrasena}"
+                               placeholder="Ingrese una contraseña"
+                               required>
+                    </div>
 
-        <label>Contraseña:</label>
-        <input type="password" th:field="*{contrasena}" required>
+                </div>
 
-        <br><br>
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar usuario
+                    </button>
+                </div>
 
-        <button type="submit">Guardar usuario</button>
+            </form>
+        </section>
 
-    </form>
+        <section class="tarjeta">
+            <h2>Usuarios registrados</h2>
 
-    <h2>Usuarios registrados</h2>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+                    <tbody>
+                        <tr th:each="usuario : ${usuarios}">
+                            <td th:text="${usuario.idUsuario}"></td>
+                            <td th:text="${usuario.nombre}"></td>
+                            <td th:text="${usuario.correo}"></td>
+                            <td th:text="${usuario.telefono}"></td>
+                            <td th:text="${usuario.direccion}"></td>
+                            <td>
+                                <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}"
+                                   class="btn btn-secundario">
+                                    Editar
+                                </a>
 
-        <tbody>
-            <tr th:each="usuario : ${usuarios}">
-                <td th:text="${usuario.idUsuario}"></td>
-                <td th:text="${usuario.nombre}"></td>
-                <td th:text="${usuario.correo}"></td>
-                <td th:text="${usuario.telefono}"></td>
-                <td th:text="${usuario.direccion}"></td>
-                <td>
-                    <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}">
-    Editar
-</a>
-|
-                    <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}"
-                       onclick="return confirm('¿Deseas eliminar este usuario?')">
-                        Eliminar
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.idUsuario})}"
+                                   class="btn btn-eliminar"
+                                   onclick="return confirm('¿Deseas eliminar este usuario?')">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-    <br>
-    <a href="/">Volver al inicio</a>
+    </main>
 
 </body>
 </html>

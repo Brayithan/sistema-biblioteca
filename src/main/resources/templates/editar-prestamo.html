@@ -2,43 +2,73 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar préstamo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Editar préstamo</h1>
+    <header>
+        <h1>📖 Editar préstamo</h1>
+        <p>Actualizar información del préstamo</p>
+    </header>
 
-    <form th:action="@{/prestamos/actualizar}" th:object="${prestamo}" method="post">
+    <main class="contenedor">
 
-        <input type="hidden" th:field="*{idPrestamo}">
+        <section class="tarjeta">
+            <h2>Modificar datos del préstamo</h2>
 
-        <label>Usuario:</label>
-        <select th:field="*{idUsuario}" required>
-            <option value="">Seleccione un usuario</option>
-            <option th:each="usuario : ${usuarios}"
-                    th:value="${usuario.idUsuario}"
-                    th:text="${usuario.nombre}">
-            </option>
-        </select>
+            <form th:action="@{/prestamos/actualizar}"
+                  th:object="${prestamo}"
+                  method="post">
 
-        <br><br>
+                <input type="hidden" th:field="*{idPrestamo}">
 
-        <label>Fecha del préstamo:</label>
-        <input type="date" th:field="*{fechaPrestamo}" required>
+                <div class="formulario">
 
-        <br><br>
+                    <div class="campo">
+                        <label for="idUsuario">Usuario:</label>
 
-        <label>Fecha de devolución:</label>
-        <input type="date" th:field="*{fechaDevolucion}">
+                        <select id="idUsuario" th:field="*{idUsuario}" required>
+                            <option value="">Seleccione un usuario</option>
+                            <option th:each="usuario : ${usuarios}"
+                                    th:value="${usuario.idUsuario}"
+                                    th:text="${usuario.nombre}">
+                            </option>
+                        </select>
+                    </div>
 
-        <br><br>
+                    <div class="campo">
+                        <label for="fechaPrestamo">Fecha del préstamo:</label>
+                        <input type="date"
+                               id="fechaPrestamo"
+                               th:field="*{fechaPrestamo}"
+                               required>
+                    </div>
 
-        <button type="submit">Guardar cambios</button>
+                    <div class="campo">
+                        <label for="fechaDevolucion">Fecha de devolución:</label>
+                        <input type="date"
+                               id="fechaDevolucion"
+                               th:field="*{fechaDevolucion}">
+                    </div>
 
-    </form>
+                </div>
 
-    <br>
-    <a href="/prestamos">Volver a préstamos</a>
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar cambios
+                    </button>
+
+                    <a th:href="@{/prestamos}" class="btn btn-secundario">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>

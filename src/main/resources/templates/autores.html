@@ -1,75 +1,86 @@
-
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de autores</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Gestión de autores</h1>
+    <header>
+        <h1>✍️ Gestión de autores</h1>
+        <p>Administración de autores de la biblioteca</p>
+    </header>
 
-    <h2>Registrar autor</h2>
+    <main class="contenedor">
 
-    <form th:action="@{/autores/guardar}" th:object="${autor}" method="post">
+        <a th:href="@{/inicio}" class="btn btn-inicio">← Volver al inicio</a>
 
-        <label for="nombre">Nombre del autor:</label>
+        <section class="tarjeta">
+            <h2>Registrar autor</h2>
 
-        <input type="text"
-               id="nombre"
-               th:field="*{nombre}"
-               required>
+            <form th:action="@{/autores/guardar}"
+                  th:object="${autor}"
+                  method="post">
 
-        <button type="submit">Guardar autor</button>
+                <div class="campo">
+                    <label for="nombre">Nombre del autor:</label>
+                    <input type="text"
+                           id="nombre"
+                           th:field="*{nombre}"
+                           placeholder="Ingrese el nombre del autor"
+                           required>
+                </div>
 
-    </form>
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar autor
+                    </button>
+                </div>
 
-    <h2>Autores registrados</h2>
-    <p th:if="${mensaje}" th:text="${mensaje}" style="color: green;"></p>
+            </form>
+        </section>
 
-<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+        <section class="tarjeta">
+            <h2>Autores registrados</h2>
 
-    <table border="1">
+            <p th:if="${mensaje}" th:text="${mensaje}" class="mensaje exito"></p>
+            <p th:if="${error}" th:text="${error}" class="mensaje error"></p>
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-        <tbody>
+                    <tbody>
+                        <tr th:each="autor : ${autores}">
+                            <td th:text="${autor.idAutor}"></td>
+                            <td th:text="${autor.nombre}"></td>
+                            <td>
+                                <a th:href="@{/autores/editar/{id}(id=${autor.idAutor})}"
+                                   class="btn btn-secundario">
+                                    Editar
+                                </a>
 
-            <tr th:each="autor : ${autores}">
+                                <a th:href="@{/autores/eliminar/{id}(id=${autor.idAutor})}"
+                                   class="btn btn-eliminar"
+                                   onclick="return confirm('¿Deseas eliminar este autor?')">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                <td th:text="${autor.idAutor}"></td>
-
-                <td th:text="${autor.nombre}"></td>
-
-                <td>
-    <a th:href="@{/autores/editar/{id}(id=${autor.idAutor})}">
-        Editar
-    </a>
-
-    |
-
-    <a th:href="@{/autores/eliminar/{id}(id=${autor.idAutor})}"
-       onclick="return confirm('¿Deseas eliminar este autor?')">
-        Eliminar
-    </a>
-</td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-    <br>
-
-    <a href="/">Volver al inicio</a>
+    </main>
 
 </body>
 </html>

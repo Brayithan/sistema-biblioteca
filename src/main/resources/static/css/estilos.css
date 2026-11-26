@@ -1,0 +1,196 @@
+/* CONFIGURACIÓN GENERAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f8;
+    color: #263238;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* ENCABEZADOS */
+header {
+    background-color: #263238;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #cfd8dc;
+}
+
+h1, h2, h3 {
+    color: #263238;
+    margin-bottom: 20px;
+}
+
+/* TARJETAS */
+.tarjeta {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta h2 {
+    margin-bottom: 20px;
+    color: #37474f;
+}
+
+/* FORMULARIOS */
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    padding: 11px;
+    border: 1px solid #b0bec5;
+    border-radius: 6px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #546e7a;
+}
+
+/* BOTONES */
+button,
+.btn {
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-principal {
+    background-color: #37474f;
+    color: white;
+}
+
+.btn-secundario {
+    background-color: #607d8b;
+    color: white;
+}
+
+.btn-eliminar {
+    background-color: #c62828;
+    color: white;
+}
+
+.btn-inicio {
+    background-color: #245b91;
+    color: white;
+    margin-bottom: 20px;
+}
+
+button:hover,
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* TABLAS */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: white;
+}
+
+th {
+    background-color: #37474f;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* MENSAJES */
+.mensaje {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.exito {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* SIN REGISTROS */
+.sin-datos {
+    text-align: center;
+    padding: 25px;
+    color: #78909c;
+}
+
+/* PIE DE PÁGINA */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #78909c;
+}
+
+/* DISEÑO ADAPTABLE */
+@media (max-width: 700px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor {
+        width: 95%;
+    }
+}

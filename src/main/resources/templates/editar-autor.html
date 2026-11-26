@@ -2,28 +2,52 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar autor</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Editar autor</h1>
+    <header>
+        <h1>✍️ Editar autor</h1>
+        <p>Actualizar información del autor</p>
+    </header>
 
-    <form th:action="@{/autores/actualizar}"
-          th:object="${autor}" method="post">
+    <main class="contenedor">
 
-        <input type="hidden" th:field="*{idAutor}">
+        <section class="tarjeta">
+            <h2>Modificar datos del autor</h2>
 
-        <label>Nombre del autor:</label>
+            <form th:action="@{/autores/actualizar}"
+                  th:object="${autor}"
+                  method="post">
 
-        <input type="text" th:field="*{nombre}" required>
+                <input type="hidden" th:field="*{idAutor}">
 
-        <button type="submit">Guardar cambios</button>
+                <div class="campo">
+                    <label for="nombre">Nombre del autor:</label>
 
-    </form>
+                    <input type="text"
+                           id="nombre"
+                           th:field="*{nombre}"
+                           placeholder="Ingrese el nombre del autor"
+                           required>
+                </div>
 
-    <br>
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar cambios
+                    </button>
 
-    <a href="/autores">Volver a autores</a>
+                    <a th:href="@{/autores}" class="btn btn-secundario">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>

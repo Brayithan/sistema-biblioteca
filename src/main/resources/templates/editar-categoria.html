@@ -2,25 +2,52 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar categoría</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-    <h1>Editar categoría</h1>
+    <header>
+        <h1>📚 Editar categoría</h1>
+        <p>Actualizar información de la categoría</p>
+    </header>
 
-    <form th:action="@{/categorias/actualizar}" th:object="${categoria}" method="post">
+    <main class="contenedor">
 
-        <input type="hidden" th:field="*{idCategoria}">
+        <section class="tarjeta">
+            <h2>Modificar datos de la categoría</h2>
 
-        <label>Nombre de la categoría:</label>
-        <input type="text" th:field="*{nombre}" required>
+            <form th:action="@{/categorias/actualizar}"
+                  th:object="${categoria}"
+                  method="post">
 
-        <button type="submit">Guardar cambios</button>
+                <input type="hidden" th:field="*{idCategoria}">
 
-    </form>
+                <div class="campo">
+                    <label for="nombre">Nombre de la categoría:</label>
 
-    <br>
-    <a href="/categorias">Volver a categorías</a>
+                    <input type="text"
+                           id="nombre"
+                           th:field="*{nombre}"
+                           placeholder="Ingrese el nombre de la categoría"
+                           required>
+                </div>
+
+                <div class="botones">
+                    <button type="submit" class="btn-principal">
+                        Guardar cambios
+                    </button>
+
+                    <a th:href="@{/categorias}" class="btn btn-secundario">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>
